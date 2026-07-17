@@ -1,0 +1,50 @@
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # permite disparar na mão pela aba Actions
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# se dois pushes vierem juntos, o último ganha
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          # Variável do repositório, em Settings > Secrets and variables > Actions.
+          # Enquanto estiver vazia o site sobe normal, só o mural fica sem salvar.
+          NEXT_PUBLIC_RECADOS_API: ${{ vars.NEXT_PUBLIC_RECADOS_API }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
