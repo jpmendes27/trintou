@@ -2,212 +2,251 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --creme-fundo: #efe7d6;
+  --creme-pagina: #f6f0e2;
+  --creme-cartao: #faf5ea;
+  --creme-caixa: #fffdf8;
+  --borda: #e6d7bb;
+  --borda-clara: #ece0c6;
+  --borda-campo: #e0cfac;
+  --marrom: #6f5945;
+  --cafe: #4a3524;
+  --dourado: #c6a06a;
+  --dourado-fio: #cba876;
+  --apoio: #7e6e5a;
+  --rotulo: #856d48;
+  --hero-rotulo: #866752;
+  --destaque: #7a6142;
+  --curva: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
-    /* O reset do Tailwind força line-height 1.5. O mockup usa o padrão
-       do navegador, então voltamos pro normal e definimos o 1.5 só onde
-       ele realmente aparece. */
     line-height: normal;
   }
-
   body {
     margin: 0;
-    background-color: #efe7d6;
-    color: #6f5945;
+    background-color: var(--creme-fundo);
+    color: var(--marrom);
     font-family: var(--fonte-corpo), 'Cormorant Garamond', serif;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
   }
-
-  ::selection {
-    background: #d8bd90;
-    color: #4f3f30;
-  }
-
+  ::selection { background: #d8bd90; color: #4f3f30; }
+  h2 { text-wrap: balance; }
   :focus-visible {
-    outline: 2px solid #8a6f4e;
+    outline: 2px solid var(--destaque);
     outline-offset: 3px;
     border-radius: 6px;
   }
 }
 
 @layer components {
-  /* Coluna central de 460px sobre o creme mais escuro do fundo. */
   .pagina {
     width: 100%;
     max-width: 460px;
-    background: #f6f0e2;
+    background: var(--creme-pagina);
     position: relative;
     padding: 14px 14px 40px;
   }
-
-  /* Moldura ornamental: um fio dourado arredondado e, por dentro,
-     um segundo fio feito com duas sombras internas. */
   .moldura {
     position: absolute;
     inset: 6px;
-    border: 1.5px solid #cba876;
+    border: 1.5px solid var(--dourado-fio);
     border-radius: 26px;
     box-shadow:
-      inset 0 0 0 3.5px #f6f0e2,
+      inset 0 0 0 3.5px var(--creme-pagina),
       inset 0 0 0 5px rgba(198, 160, 106, 0.45);
     pointer-events: none;
   }
-
   .cartao {
     margin: 16px 6px 0;
     padding: 24px 20px 26px;
-  }
-
-  /* O cartão do grande dia respira 26px do convite e fecha em 24px. */
-  .cartao-primeiro {
-    margin-top: 26px;
-    padding-bottom: 24px;
-    background: #faf5ea;
-    border: 1px solid #e6d7bb;
+    background: var(--creme-cartao);
+    border: 1px solid var(--borda);
     border-radius: 18px;
+    box-shadow:
+      0 1px 1px rgba(111, 89, 69, 0.03),
+      0 10px 28px -16px rgba(111, 89, 69, 0.28);
   }
-
+  .cartao-primeiro { margin-top: 26px; padding-bottom: 24px; }
   .caixa {
-    background: #fffdf8;
-    border: 1px solid #ece0c6;
+    background: var(--creme-caixa);
+    border: 1px solid var(--borda-clara);
     border-radius: 14px;
     padding: 14px 16px;
   }
-
   .rotulo {
     margin: 0;
     font-size: 14px;
     letter-spacing: 0.4em;
     text-transform: uppercase;
-    color: #b39a72;
+    color: var(--rotulo);
     font-weight: 600;
   }
-
+  .rotulo-ornado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .rotulo-ornado::before,
+  .rotulo-ornado::after {
+    content: '';
+    height: 1px;
+    flex: 0 1 34px;
+    background: linear-gradient(90deg, transparent, var(--dourado-fio));
+  }
+  .rotulo-ornado::after {
+    background: linear-gradient(90deg, var(--dourado-fio), transparent);
+  }
+  .rotulo-ornado > span { text-indent: 0.4em; }
   .titulo {
     margin: 8px 0 0;
     font-family: var(--fonte-titulo), serif;
     font-size: 30px;
     line-height: 1.1;
-    color: #6f5945;
+    color: var(--marrom);
     font-weight: 400;
   }
-
   .apoio {
     font-size: 18px;
     font-style: italic;
     line-height: 1.5;
-    color: #a08f7a;
+    color: var(--apoio);
   }
-
-  /* Realce dentro dos parágrafos de apoio. */
-  .destaque {
-    color: #8a6f4e;
-    font-style: normal;
-    font-weight: 600;
-  }
-
-  .divisor {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #e0cfac, transparent);
-  }
-
-  /* Botão sólido do mural. */
+  .destaque { color: var(--destaque); font-style: normal; font-weight: 600; }
   .botao-solido {
     width: 100%;
     padding: 15px;
     border: none;
     border-radius: 14px;
-    background: #c6a06a;
-    color: #fffdf8;
+    background: var(--dourado);
+    color: var(--cafe);
     font-family: var(--fonte-corpo), serif;
     font-weight: 600;
     font-size: 18px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 6px 16px -8px rgba(111, 89, 69, 0.5);
+    transition:
+      background-color 0.25s var(--curva),
+      box-shadow 0.25s var(--curva),
+      transform 0.12s var(--curva);
   }
-
-  .botao-solido:hover:not(:disabled) {
-    background: #b8905a;
-  }
-
+  .botao-solido:hover:not(:disabled) { background: #cfab77; }
   .botao-solido:active:not(:disabled) {
     transform: translateY(1px);
+    box-shadow: 0 3px 10px -8px rgba(111, 89, 69, 0.5);
   }
-
-  .botao-solido:disabled {
-    opacity: 0.55;
-    cursor: default;
-  }
-
-  /* Botão contornado do mapa. O padding vertical é 14px em vez dos
-     10px do mockup pra fechar os 44px de alvo de toque. */
+  .botao-solido:disabled { opacity: 0.5; box-shadow: none; cursor: default; }
   .botao-contorno {
     display: inline-block;
     font-size: 14px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #6f5945;
-    border: 1.5px solid #cba876;
+    color: var(--marrom);
+    border: 1.5px solid var(--dourado);
     border-radius: 999px;
     padding: 14px 24px;
     text-decoration: none;
     font-weight: 600;
-    transition: background-color 0.2s ease;
+    transition:
+      background-color 0.25s var(--curva),
+      border-color 0.25s var(--curva);
   }
-
-  .botao-contorno:hover {
-    background: #f4ead6;
-  }
-
+  .botao-contorno:hover { background: #f4ead6; border-color: var(--destaque); }
   .campo {
     display: block;
     width: 100%;
     padding: 13px 15px;
-    border: 1px solid #e0cfac;
+    border: 1px solid var(--borda-campo);
     border-radius: 12px;
-    background: #fffdf8;
+    background: var(--creme-caixa);
     font-family: var(--fonte-corpo), serif;
     font-size: 18px;
-    color: #6f5945;
+    color: var(--marrom);
     outline: none;
     resize: none;
+    transition:
+      border-color 0.25s var(--curva),
+      box-shadow 0.25s var(--curva);
   }
-
-  .campo::placeholder {
-    color: #a08f7a;
-    opacity: 1;
+  .campo::placeholder { color: var(--apoio); opacity: 0.75; }
+  .campo:focus {
+    border-color: var(--dourado);
+    box-shadow: 0 0 0 3px rgba(198, 160, 106, 0.16);
   }
-
-  /* Contador do mural. */
   .contador {
     margin: 0 0 14px;
     text-align: center;
     font-size: 12px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: #b39a72;
+    color: var(--rotulo);
     font-weight: 600;
+    text-indent: 0.3em;
   }
-
-  /* Assinatura do recado. */
   .assinatura {
     margin: 8px 0 0;
     font-size: 14px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #b39a72;
+    color: var(--rotulo);
     font-weight: 600;
+  }
+  .swatch {
+    display: block;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 0 3px var(--creme-caixa),
+      inset 0 -3px 6px rgba(74, 53, 36, 0.22),
+      0 0 0 1px var(--borda-campo);
   }
 }
 
+.com-js [data-revelar] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s var(--curva),
+    transform 0.7s var(--curva);
+  will-change: opacity, transform;
+}
+.com-js [data-revelar].revelado {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+.com-js [data-revelar] .swatch {
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 0.5s var(--curva),
+    transform 0.5s var(--curva);
+}
+.com-js [data-revelar].revelado .swatch {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i) * 80ms + 150ms);
+}
+.recado-novo { animation: surgir 0.6s var(--curva) both; }
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(8px); }
+}
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  .com-js [data-revelar],
+  .com-js [data-revelar] .swatch {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }

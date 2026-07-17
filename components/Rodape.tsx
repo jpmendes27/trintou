@@ -1,12 +1,12 @@
 export function Rodape() {
   return (
-    <footer style={{ textAlign: 'center', marginTop: 26, padding: '0 12px' }}>
+    <footer data-revelar style={{ textAlign: 'center', marginTop: 26, padding: '0 12px' }}>
       <p
         style={{
           margin: 0,
           fontFamily: 'var(--fonte-titulo), serif',
           fontSize: 22,
-          color: '#6f5945',
+          color: 'var(--marrom)',
         }}
       >
         Trintou{' '}
@@ -14,7 +14,7 @@ export function Rodape() {
           style={{
             fontFamily: 'var(--fonte-corpo), serif',
             fontStyle: 'italic',
-            color: '#c6a06a',
+            color: 'var(--dourado)',
           }}
         >
           da Jenniffer
@@ -25,7 +25,7 @@ export function Rodape() {
           margin: '6px 0 0',
           fontSize: 14,
           fontStyle: 'italic',
-          color: '#b39a72',
+          color: 'var(--rotulo)',
         }}
       >
         —&nbsp;celebrando aquela que há 30 anos faz nossa vida mais feliz ·

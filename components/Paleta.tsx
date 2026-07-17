@@ -8,8 +8,10 @@ const TONS = [
 
 export function Paleta() {
   return (
-    <section className="cartao text-center" aria-labelledby="traje">
-      <p className="rotulo">Paleta de cores &amp; traje</p>
+    <section data-revelar className="cartao text-center" aria-labelledby="traje">
+      <p className="rotulo rotulo-ornado">
+        <span>Paleta de cores &amp; traje</span>
+      </p>
 
       <h2 id="traje" className="titulo">
         Venha de marrom
@@ -32,24 +34,18 @@ export function Paleta() {
           listStyle: 'none',
         }}
       >
-        {TONS.map((tom) => (
+        {TONS.map((tom, i) => (
           <li key={tom.hex}>
             <span
-              style={{
-                display: 'block',
-                width: 44,
-                height: 44,
-                borderRadius: '50%',
-                background: tom.hex,
-                boxShadow: 'inset 0 0 0 3px #fffdf8, 0 0 0 1px #e0cfac',
-              }}
+              className="swatch"
+              style={{ background: tom.hex, '--i': i } as React.CSSProperties}
             />
             <span className="sr-only">{tom.nome}</span>
           </li>
         ))}
       </ul>
 
-      <p className="rotulo" style={{ letterSpacing: '0.24em' }}>
+      <p className="rotulo" style={{ letterSpacing: '0.24em', textIndent: '0.24em' }}>
         Do café ao creme · escolha o seu tom
       </p>
     </section>

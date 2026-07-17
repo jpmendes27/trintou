@@ -71,9 +71,11 @@ export function Mural() {
         }`;
 
   return (
-    <section className="cartao" aria-labelledby="mural">
+    <section data-revelar className="cartao" aria-labelledby="mural">
       <div style={{ textAlign: 'center', marginBottom: 18 }}>
-        <p className="rotulo">Recadinho de aniversário</p>
+        <p className="rotulo rotulo-ornado">
+          <span>Recadinho de aniversário</span>
+        </p>
         <h2 id="mural" className="titulo" style={{ lineHeight: 1.05 }}>
           Deixe um carinho
         </h2>
@@ -82,7 +84,7 @@ export function Mural() {
             margin: '6px 0 0',
             fontSize: 17,
             fontStyle: 'italic',
-            color: '#a08f7a',
+            color: 'var(--apoio)',
           }}
         >
           vou juntar tudo num mural pra ela ler no dia
@@ -97,7 +99,7 @@ export function Mural() {
               textAlign: 'center',
               fontSize: 18,
               lineHeight: 1.5,
-              color: '#6f5945',
+              color: 'var(--marrom)',
             }}
           >
             Recado enviado! Já já ele aparece aqui. 🤍
@@ -157,7 +159,7 @@ export function Mural() {
                 margin: 0,
                 fontSize: 16,
                 lineHeight: 1.4,
-                color: '#6f5945',
+                color: 'var(--marrom)',
               }}
             >
               {erroEnvio}
@@ -184,7 +186,7 @@ export function Mural() {
             textAlign: 'center',
             fontSize: 16,
             fontStyle: 'italic',
-            color: '#a08f7a',
+            color: 'var(--apoio)',
           }}
         >
           Os recados não carregaram agora. Atualize a página em instantes.
@@ -204,14 +206,14 @@ export function Mural() {
           }}
         >
           {recados.map((recado) => (
-            <li key={recado.id} className="caixa">
+            <li key={recado.id} className="caixa recado-novo">
               <p
                 style={{
                   margin: 0,
                   fontSize: 18,
                   fontStyle: 'italic',
                   lineHeight: 1.4,
-                  color: '#6f5945',
+                  color: 'var(--marrom)',
                 }}
               >
                 &ldquo;{recado.mensagem}&rdquo;

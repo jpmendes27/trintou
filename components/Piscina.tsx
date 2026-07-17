@@ -1,7 +1,9 @@
 export function Piscina() {
   return (
-    <section className="cartao text-center" aria-labelledby="piscina">
-      <p className="rotulo">Depois das fotos</p>
+    <section data-revelar className="cartao text-center" aria-labelledby="piscina">
+      <p className="rotulo rotulo-ornado">
+        <span>Depois das fotos</span>
+      </p>
 
       <h2 id="piscina" className="titulo">
         A piscina estará liberada
@@ -14,13 +16,13 @@ export function Piscina() {
 
       <div
         style={{
-          background: '#fffdf8',
-          border: '1px dashed #cba876',
+          background: 'var(--creme-caixa)',
+          border: '1px dashed var(--dourado-fio)',
           borderRadius: 14,
           padding: '14px 16px',
         }}
       >
-        <p style={{ margin: 0, fontSize: 16, lineHeight: 1.5, color: '#6f5945' }}>
+        <p style={{ margin: 0, fontSize: 16, lineHeight: 1.5, color: 'var(--marrom)' }}>
           Como é um ambiente <b className="destaque">de família</b>, contamos com
           o bom senso de todos na escolha do traje de banho. 🤍
         </p>

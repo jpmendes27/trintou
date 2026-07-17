@@ -2,14 +2,15 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export function Hero() {
   return (
-    <header style={{ padding: '18px 8px 4px', textAlign: 'center' }}>
+    <header data-revelar style={{ padding: '18px 8px 4px', textAlign: 'center' }}>
       <p
         style={{
           margin: '0 0 10px',
           fontSize: 14,
           letterSpacing: '0.42em',
+          textIndent: '0.42em',
           textTransform: 'uppercase',
-          color: '#886953',
+          color: 'var(--hero-rotulo)',
           fontWeight: 600,
         }}
       >

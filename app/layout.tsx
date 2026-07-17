@@ -37,6 +37,8 @@ export const metadata: Metadata = {
   },
 };
 
+const marcaJs = `document.documentElement.classList.add('com-js')`;
+
 export default function RootLayout({
   children,
 }: {
@@ -44,6 +46,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={`${yeseva.variable} ${cormorant.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: marcaJs }} />
+      </head>
       <body>{children}</body>
     </html>
   );

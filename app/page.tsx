@@ -4,6 +4,7 @@ import { Paleta } from '@/components/Paleta';
 import { Piscina } from '@/components/Piscina';
 import { Mural } from '@/components/Mural';
 import { Rodape } from '@/components/Rodape';
+import { Animacoes } from '@/components/Animacoes';
 
 export default function Pagina() {
   return (
@@ -28,6 +29,7 @@ export default function Pagina() {
           <Rodape />
         </div>
       </main>
+      <Animacoes />
     </div>
   );
 }
