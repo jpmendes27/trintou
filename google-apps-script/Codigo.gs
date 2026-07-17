@@ -7,9 +7,15 @@
  *   A: id  |  B: criado_em  |  C: mensagem  |  D: autor  |  E: aprovado
  *
  * A coluna E é uma caixa de seleção. Marcou, o recado aparece no site.
+ * Você não precisa criar as caixinhas na mão: o script põe uma em cada
+ * recado novo. Aliás, é melhor não criar, porque caixinha vazia conta
+ * como conteúdo pro Sheets e bagunça a conta de onde termina a lista.
+ * Por isso aqui a gente mede a lista pela coluna da mensagem, e não
+ * pelo fim da planilha.
  */
 
 var ABA = 'recados';
+var COL_MENSAGEM = 3;
 var LIMITE_MENSAGEM = 280;
 var LIMITE_AUTOR = 40;
 
@@ -17,16 +23,17 @@ var LIMITE_AUTOR = 40;
 function doGet() {
   try {
     var aba = SpreadsheetApp.getActive().getSheetByName(ABA);
-    var ultimaLinha = aba.getLastRow();
+    if (!aba) return json({ ok: false, erro: 'aba "recados" não encontrada' });
 
-    if (ultimaLinha < 2) return json({ ok: true, recados: [] });
+    var ultima = ultimaLinhaDeRecado(aba);
+    if (ultima < 2) return json({ ok: true, recados: [] });
 
-    var linhas = aba.getRange(2, 1, ultimaLinha - 1, 5).getValues();
+    var linhas = aba.getRange(2, 1, ultima - 1, 5).getValues();
     var recados = [];
 
     for (var i = 0; i < linhas.length; i++) {
-      var aprovado = linhas[i][4];
-      if (aprovado !== true) continue;
+      if (linhas[i][4] !== true) continue;
+      if (String(linhas[i][2]).trim() === '') continue;
 
       recados.push({
         id: String(linhas[i][0]),
@@ -51,18 +58,26 @@ function doPost(e) {
     var mensagem = limpar(corpo.mensagem, LIMITE_MENSAGEM);
     var autor = limpar(corpo.autor, LIMITE_AUTOR);
 
-    if (mensagem.length < 2 || autor.length < 2) {
-      return json({ ok: false, erro: 'Preencha a frase e o seu nome.' });
+    if (mensagem.length < 2) {
+      return json({ ok: false, erro: 'Escreva sua frase antes de enviar.' });
     }
+    if (autor.length < 2) autor = 'Anônimo';
 
     lock.waitLock(10000);
 
     var aba = SpreadsheetApp.getActive().getSheetByName(ABA);
-    aba.appendRow([Utilities.getUuid(), new Date(), mensagem, autor, false]);
+    if (!aba) return json({ ok: false, erro: 'aba "recados" não encontrada' });
 
-    // Garante que a célula de aprovação continue sendo uma caixa de seleção.
+    var linha = ultimaLinhaDeRecado(aba) + 1;
+    if (linha < 2) linha = 2;
+
     aba
-      .getRange(aba.getLastRow(), 5)
+      .getRange(linha, 1, 1, 5)
+      .setValues([[Utilities.getUuid(), new Date(), mensagem, autor, false]]);
+
+    // A caixinha de aprovação nasce junto com o recado.
+    aba
+      .getRange(linha, 5)
       .setDataValidation(
         SpreadsheetApp.newDataValidation().requireCheckbox().build()
       );
@@ -75,6 +90,24 @@ function doPost(e) {
       lock.releaseLock();
     } catch (ignorado) {}
   }
+}
+
+/**
+ * Onde a lista de recados realmente termina, olhando a coluna da
+ * mensagem. Ignora caixinhas vazias e qualquer sujeira nas outras
+ * colunas. Devolve 1 quando só existe o cabeçalho.
+ */
+function ultimaLinhaDeRecado(aba) {
+  var total = aba.getMaxRows();
+  if (total < 2) return 1;
+
+  var col = aba.getRange(2, COL_MENSAGEM, total - 1, 1).getValues();
+
+  for (var i = col.length - 1; i >= 0; i--) {
+    if (String(col[i][0]).trim() !== '') return i + 2;
+  }
+
+  return 1;
 }
 
 /** Corta espaços sobrando, tira tags e limita o tamanho. */

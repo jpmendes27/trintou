@@ -28,7 +28,7 @@ Na linha 1, preencha exatamente estas cinco colunas:
 |---|---|---|---|---|
 | id | criado_em | mensagem | autor | aprovado |
 
-Selecione a coluna E inteira e vá em **Inserir → Caixa de seleção**.
+Não crie caixas de seleção na coluna E. O script põe uma em cada recado que chega. Se você criar na mão numa coluna inteira, o Sheets passa a considerar mil linhas como preenchidas e o recado novo vai parar na linha 1001.
 
 ### 2. Colar o script
 
