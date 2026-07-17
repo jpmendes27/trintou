@@ -210,19 +210,66 @@
   }
 }
 
+/*
+  Movimento.
+
+  Duas camadas.
+
+  A base é o IntersectionObserver: cada seção sobe e aparece quando entra
+  em cena. Funciona em qualquer navegador, inclusive Firefox e iPhone
+  desatualizado.
+
+  Por cima, quem tem suporte a scroll-driven animation (Chrome/Edge 115+,
+  Safari 26+) ganha a mesma coisa amarrada na rolagem em vez de num
+  cronômetro. A diferença é o dedo: a animação anda quando você anda,
+  para quando você para, e volta se você subir. É isso que separa
+  "animado" de "fluido".
+
+  O opacity 0 mora atrás de .com-js, classe que só existe se o script do
+  layout rodar. Sem JavaScript, tudo nasce visível. Esse link vai pro
+  WhatsApp de muita gente com celular velho e a animação não pode ser
+  condição pra enxergar o convite.
+*/
+
 .com-js [data-revelar] {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(16px);
   transition:
     opacity 0.7s var(--curva),
     transform 0.7s var(--curva);
   will-change: opacity, transform;
 }
+
 .com-js [data-revelar].revelado {
   opacity: 1;
   transform: none;
   will-change: auto;
 }
+
+/*
+  Os fios do rótulo são desenhados de dentro pra fora, saindo do texto.
+  É a mão passando a régua depois de escrever o título.
+*/
+.com-js .rotulo-ornado::before,
+.com-js .rotulo-ornado::after {
+  transform: scaleX(0);
+  transition: transform 0.75s var(--curva) 0.2s;
+}
+
+.com-js .rotulo-ornado::before {
+  transform-origin: right center;
+}
+
+.com-js .rotulo-ornado::after {
+  transform-origin: left center;
+}
+
+.com-js [data-revelar].revelado .rotulo-ornado::before,
+.com-js [data-revelar].revelado .rotulo-ornado::after {
+  transform: scaleX(1);
+}
+
+/* Os tons entram em cascata, como quem abre um leque de amostras. */
 .com-js [data-revelar] .swatch {
   opacity: 0;
   transform: scale(0.8);
@@ -230,23 +277,69 @@
     opacity 0.5s var(--curva),
     transform 0.5s var(--curva);
 }
+
 .com-js [data-revelar].revelado .swatch {
   opacity: 1;
   transform: none;
-  transition-delay: calc(var(--i) * 80ms + 150ms);
+  transition-delay: calc(var(--i) * 80ms + 250ms);
 }
-.recado-novo { animation: surgir 0.6s var(--curva) both; }
+
+/*
+  Camada 2: o movimento passa a ser função da rolagem.
+
+  O animation-range fecha em "entry 92%", antes da entrada completa, de
+  propósito: elementos no fim do documento não têm rolagem sobrando pra
+  completar um range mais longo e ficariam eternamente meio transparentes.
+*/
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .com-js [data-revelar] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: assentar linear both;
+      animation-timeline: view();
+      animation-range: entry 4% entry 92%;
+    }
+  }
+}
+
+@keyframes assentar {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.recado-novo {
+  animation: surgir 0.6s var(--curva) both;
+}
+
 @keyframes surgir {
-  from { opacity: 0; transform: translateY(8px); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .com-js [data-revelar],
-  .com-js [data-revelar] .swatch {
+  .com-js [data-revelar] .swatch,
+  .com-js .rotulo-ornado::before,
+  .com-js .rotulo-ornado::after {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    animation: none !important;
   }
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
