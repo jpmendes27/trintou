@@ -21,10 +21,10 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export const metadata: Metadata = {
   title: 'J · 08.08 · 🤎',
-  description: 'você foi convidado 🤎',
+  description: 'Você foi convidado(a) 🤎',
   openGraph: {
     title: 'J · 08.08 · 🤎',
-    description: 'você foi convidado 🤎',
+    description: 'Você foi convidado(a) 🤎',
     url: `https://jpmendes.com${base}`,
     type: 'website',
     locale: 'pt_BR',
