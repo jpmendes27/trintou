@@ -1,4 +1,5 @@
 import { Hero } from '@/components/Hero';
+import { Segredo } from '@/components/Segredo';
 import { GrandeDia } from '@/components/GrandeDia';
 import { Paleta } from '@/components/Paleta';
 import { Piscina } from '@/components/Piscina';
@@ -22,6 +23,7 @@ export default function Pagina() {
 
         <div style={{ position: 'relative' }}>
           <Hero />
+          <Segredo />
           <GrandeDia />
           <Paleta />
           <Piscina />

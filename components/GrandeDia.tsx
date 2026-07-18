@@ -2,7 +2,7 @@ const INSTAGRAM_DO_SITIO = 'https://www.instagram.com/espacovalledo_mendanha/';
 
 export function GrandeDia() {
   return (
-    <section data-revelar className="cartao cartao-primeiro text-center" aria-labelledby="grande-dia">
+    <section data-revelar className="cartao text-center" aria-labelledby="grande-dia">
       <p className="rotulo rotulo-ornado" style={{ fontSize: 18 }}>
         <span>O grande dia</span>
       </p>

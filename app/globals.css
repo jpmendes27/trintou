@@ -198,6 +198,50 @@
     color: var(--rotulo);
     font-weight: 600;
   }
+  /*
+    O cartão do segredo: o único escuro da página.
+
+    Ele quebra a sequência de retângulos cor de creme idênticos, que era o
+    que sobrava de genérico na composição. Sendo o único momento escuro,
+    ele grita "leia isso" sem precisar de vermelho nem de ícone de alerta.
+  */
+  .cartao-escuro {
+    background: var(--cafe);
+    border-color: rgba(198, 160, 106, 0.5);
+    box-shadow:
+      0 1px 1px rgba(74, 53, 36, 0.1),
+      0 14px 32px -14px rgba(74, 53, 36, 0.55);
+  }
+
+  .rotulo-claro {
+    color: var(--dourado);
+  }
+
+  .rotulo-claro::before,
+  .rotulo-claro::after {
+    background: linear-gradient(90deg, transparent, var(--dourado));
+  }
+
+  .rotulo-claro::after {
+    background: linear-gradient(90deg, var(--dourado), transparent);
+  }
+
+  .titulo-claro {
+    color: var(--creme-pagina);
+  }
+
+  .apoio-claro {
+    color: #ddcdb2;
+  }
+
+  .caixa-escura {
+    background: rgba(255, 253, 248, 0.06);
+    border: 1px dashed rgba(198, 160, 106, 0.55);
+    border-radius: 14px;
+    padding: 14px 16px;
+    color: #ece0c6;
+  }
+
   .swatch {
     display: block;
     width: 44px;
