@@ -32,6 +32,14 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     images: [`https://jpmendes.com${base}/og.png`],
   },
+  icons: {
+    icon: [
+      { url: `${base}/favicon.ico`, sizes: 'any' },
+      { url: `${base}/icon-192.png`, type: 'image/png', sizes: '192x192' },
+      { url: `${base}/icon-512.png`, type: 'image/png', sizes: '512x512' },
+    ],
+    apple: [{ url: `${base}/apple-icon.png`, sizes: '180x180' }],
+  },
   other: {
     'theme-color': '#efe7d6',
   },
