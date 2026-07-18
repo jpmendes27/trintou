@@ -20,13 +20,11 @@ const cormorant = Cormorant_Garamond({
 const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export const metadata: Metadata = {
-  title: 'Trintou da Jenniffer',
-  description:
-    '08 de agosto, sábado, meio-dia, no Sítio Valle do Mendanha. Venha de marrom e traga roupa de banho.',
+  title: 'J · 08.08 · 🤎',
+  description: 'você foi convidado 🤎',
   openGraph: {
-    title: 'Trintou da Jenniffer',
-    description:
-      '08 de agosto, sábado, meio-dia, no Sítio Valle do Mendanha. Venha de marrom e traga roupa de banho.',
+    title: 'J · 08.08 · 🤎',
+    description: 'você foi convidado 🤎',
     url: `https://jpmendes.com${base}`,
     type: 'website',
     locale: 'pt_BR',
