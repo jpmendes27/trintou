@@ -28,8 +28,7 @@ export function Rodape() {
           color: 'var(--rotulo)',
         }}
       >
-        —&nbsp;celebrando aquela que há 30 anos faz nossa vida mais feliz ·
-        08.08&nbsp;—
+        —&nbsp;celebrando aquela que há 30 anos faz nossa vida mais feliz&nbsp;—
       </p>
     </footer>
   );

@@ -206,7 +206,11 @@ export function Mural() {
           }}
         >
           {recados.map((recado) => (
-            <li key={recado.id} className="caixa recado-novo">
+            <li
+              key={recado.id}
+              className="caixa recado-novo"
+              style={{ textAlign: 'center' }}
+            >
               <p
                 style={{
                   margin: 0,
